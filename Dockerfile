@@ -7,7 +7,7 @@ FROM python:alpine
 COPY --from=builder /wheels /wheels
 
 RUN \
-	apk --no-cache add borgbackup openssh-client bash && \
+	apk --no-cache add borgbackup openssh-client && \
     	pip3 install -f /wheels borgmatic && \
     	rm -fr /var/cache/apk/* /wheels /.cache
 
