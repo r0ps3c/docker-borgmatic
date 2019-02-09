@@ -1,7 +1,6 @@
 FROM python:alpine as builder
 ENV PYTHONUNBUFFERED 1
 ENV VER 1.1.8
-COPY msgpack-fix.patch ./
 RUN \
 	apk --no-cache add build-base python3-dev lz4-dev acl-dev attr-dev openssl-dev linux-headers py3-setuptools py3-msgpack py3-zmq && \
 	wget https://github.com/borgbackup/borg/releases/download/$VER/borgbackup-$VER.tar.gz && \
