@@ -1,8 +1,8 @@
 FROM python:alpine as builder
 ENV PYTHONUNBUFFERED 1
-ENV VER 1.1.10
+ENV VER 1.1.11
 RUN \
-	apk --no-cache add build-base python3-dev lz4-dev acl-dev attr-dev openssl-dev linux-headers py3-setuptools py3-msgpack py3-zmq && \
+	apk --no-cache add build-base python3-dev acl-dev attr-dev openssl-dev linux-headers libffi-dev && \
 	wget https://github.com/borgbackup/borg/releases/download/$VER/borgbackup-$VER.tar.gz && \
 	tar xf borgbackup-$VER.tar.gz && \
 	cd borgbackup-$VER && \
@@ -14,7 +14,7 @@ FROM python:alpine
 COPY --from=builder /wheels /wheels
 
 RUN \
-	apk --no-cache add openssh-client py3-msgpack py3-zmq lz4-libs libzmq libacl && \
+	apk --no-cache add openssh-client libacl && \
     	pip3 install -f /wheels borgbackup borgmatic && \
     	rm -fr /var/cache/apk/* /wheels /.cache
 
