@@ -12,7 +12,5 @@ RUN \
     	pip3 install -f /wheels borgmatic && \
     	rm -fr /var/cache/apk/* /wheels /.cache
 
-COPY ./entrypoint.sh /entrypoint.sh
-
 WORKDIR /
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/borgmatic"]
